@@ -12,7 +12,7 @@ namespace Eykt
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "blogging.db");
+            DbPath = System.IO.Path.Join(path, "eykt.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options) 
