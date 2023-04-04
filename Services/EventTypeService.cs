@@ -24,6 +24,14 @@ namespace Eykt
                 Name = name,
             };
             db.EventTypes.Add(newType);
+            db.SaveChanges();
+        }
+
+        public static void DeleteType(int id) 
+        {
+            EventType toDelete = GetEventType(id);
+            db.EventTypes.Remove(toDelete);
+            db.SaveChanges();
         }
     }
 }

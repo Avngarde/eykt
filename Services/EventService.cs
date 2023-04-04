@@ -27,6 +27,7 @@ namespace Eykt
                 Date = date
             };
             db.Events.Add(newEvent);
+            db.SaveChanges();
         }
     }
 }
