@@ -2,8 +2,7 @@ namespace Eykt
 {
     public class EventType
     {
-        public int TypeId { get; set; }
+        public int EventTypeId { get; set; }
         public string? Name { get; set; }
-        
     }
 }
