@@ -6,6 +6,12 @@ namespace Eykt
     {
         public static void Main()
         {
+            EyktContext db = new();
+            PrintMainMenu(db);
+        }
+
+        public static void PrintMainMenu(EyktContext db)
+        {
             AnsiConsole.Clear();
             AnsiConsole.Write(
                 new FigletText("EYKT")
@@ -21,9 +27,9 @@ namespace Eykt
                         "1. View events", "2. Edit event types", "2. Exit",
                     }));
             if (mainMenuSelection == "1. View events")
-                new EventsView();
+                new EventsView(db);
             else if (mainMenuSelection == "2. Edit event types") 
-                new  EventTypesView();
+                new  EventTypesView(db);
             else
             {
                 AnsiConsole.Clear();

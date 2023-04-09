@@ -4,8 +4,11 @@ namespace Eykt
 {
     public class EventTypesView
     {
-        public EventTypesView()
+        public EyktContext db;
+        
+        public EventTypesView(EyktContext dbCtx)
         {
+            db = dbCtx;
             PrintMainTypesSelection();
         }
 
@@ -27,7 +30,7 @@ namespace Eykt
             else if (typesMainSelection == "Delete type")
                 DeleteTypeForm();
             else if (typesMainSelection == "Return to main menu") 
-                Program.Main();            
+                Program.PrintMainMenu(db);           
         }
 
         private void PrintTypes() 
@@ -39,7 +42,7 @@ namespace Eykt
             table.AddColumn("ID");
             table.AddColumn(new TableColumn("Name").Centered());
 
-            EventType[] types = EventTypeService.GetTypes();
+            EventType[] types = EventTypeService.GetTypes(db);
             foreach(EventType type in types) 
             {
                 table.AddRow($"{type.EventTypeId}", $"{type.Name}");    
@@ -50,7 +53,7 @@ namespace Eykt
 
         private string? GetTypeToDelete() 
         {
-            EventType[] types = EventTypeService.GetTypes();
+            EventType[] types = EventTypeService.GetTypes(db);
             List<string> choices = new();
             foreach(EventType type in types) 
             {
@@ -72,7 +75,7 @@ namespace Eykt
         {
             AnsiConsole.Clear();
             var name = AnsiConsole.Ask<string>("New type [purple]name[/]:");
-            EventTypeService.AddEvent(name);
+            EventTypeService.AddEvent(db, name);
             PrintMainTypesSelection();
         }
 
@@ -81,7 +84,7 @@ namespace Eykt
             AnsiConsole.Clear();
             string deleteType = GetTypeToDelete();
             int eventId = Convert.ToInt16(deleteType.Split(" ")[0]);
-            EventTypeService.DeleteType(eventId);
+            EventTypeService.DeleteType(db, eventId);
             PrintMainTypesSelection();
         }
     }

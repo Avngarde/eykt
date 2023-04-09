@@ -2,22 +2,28 @@ namespace Eykt
 {
     public static class EventTypeService
     {
-        private static EyktContext db = new();
-        public static EventType[] GetTypes() 
+        public static EventType[] GetTypes(EyktContext db) 
         {
             return db.EventTypes
                 .OrderBy(e => e.EventTypeId)
                 .ToArray();
         }
 
-        public static EventType GetEventType(int id) 
+        public static EventType GetEventType(EyktContext db, int id) 
         {
             return db.EventTypes
                 .Where(b => b.EventTypeId == id)
                 .First();
         }
 
-        public static void AddEvent(string name) 
+        public static EventType GetEventTypeByName(EyktContext db, string name) 
+        {
+            return db.EventTypes
+                .Where(b => b.Name == name)
+                .First();
+        }
+
+        public static void AddEvent(EyktContext db, string name) 
         {
             EventType newType = new() 
             {
@@ -27,9 +33,9 @@ namespace Eykt
             db.SaveChanges();
         }
 
-        public static void DeleteType(int id) 
+        public static void DeleteType(EyktContext db, int id) 
         {
-            EventType toDelete = GetEventType(id);
+            EventType toDelete = GetEventType(db, id);
             db.EventTypes.Remove(toDelete);
             db.SaveChanges();
         }
