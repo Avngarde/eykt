@@ -28,5 +28,13 @@ namespace Eykt
             db.Events.Add(newEvent);
             db.SaveChanges();
         }
+
+        public static void DeleteEvent(EyktContext db, int id) 
+        {
+            db.Events.Remove(
+                GetEvent(db, id)
+            );
+            db.SaveChanges();
+        }
     }
 }

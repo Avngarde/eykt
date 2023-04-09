@@ -91,7 +91,24 @@ namespace Eykt
 
         public void DeleteEventForm() 
         {
+            Event[] events = EventService.GetEvents(db);
+            List<string> choices = new();
+            foreach(Event evnt in events) 
+            {
+                choices.Add($"{evnt.EventId} - {evnt.Name}");   
+            }
 
+            var eventDeleteSelect = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title("What to do [purple]next?[/]")
+                    .HighlightStyle(new Style(foreground: Color.Orange1))
+                    .PageSize(10)
+                    .AddChoices(choices.ToArray())
+            );
+
+            int id = Convert.ToInt16(eventDeleteSelect.Split(' ')[0]);
+            EventService.DeleteEvent(db, id);
+            PrintEventsSelect();
         }
     }
 }
