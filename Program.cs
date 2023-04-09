@@ -15,7 +15,7 @@ namespace Eykt
             AnsiConsole.Clear();
             AnsiConsole.Write(
                 new FigletText("EYKT")
-                    .Centered()
+                    .LeftJustified()
                     .Color(Color.DarkOrange));
 
             var mainMenuSelection = AnsiConsole.Prompt(
